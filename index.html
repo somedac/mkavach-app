@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get M-Kavach 2</title>
+<meta name="description" content="Download M-Kavach 2 from the App Store or Google Play.">
+<meta name="robots" content="noindex">
+<style>
+  :root { --bg:#f4f7fb; --fg:#0b2545; --muted:#52627a; --card:#fff; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0b1320; --fg:#eaf1fb; --muted:#9fb0c8; --card:#142036; } }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+         padding:24px 16px; background:var(--bg); color:var(--fg);
+         font:16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align:center; }
+  main { width:100%; max-width:520px; background:var(--card); border-radius:16px; padding:32px 24px;
+         box-shadow:0 4px 24px rgba(0,0,0,.08); }
+  h1 { margin:0 0 4px; font-size:1.6rem; }
+  p { margin:0 0 20px; color:var(--muted); }
+  .badges { display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; justify-content:center; }
+  .badges a { display:block; line-height:0; }
+  .apple  { height:48px; width:auto; }
+  /* Google's PNG includes its own clear space, so it is rendered taller to match Apple's visible height */
+  .google { height:70px; width:auto; }
+  .qr { margin-top:24px; display:none; }
+  .qr img { width:160px; height:160px; background:#fff; padding:8px; border-radius:8px; }
+  .qr small { display:block; color:var(--muted); margin-top:6px; }
+  .status { margin-bottom:16px; }
+  .hidden { display:none; }
+  .desktop .qr { display:block; }
+</style>
+</head>
+<body>
+<main>
+  <h1>M-Kavach 2</h1>
+  <p id="msg">Get the app for your device.</p>
+
+  <div class="badges">
+    <a id="ios-link" href="https://apps.apple.com/in/app/m-kavach-2/id6768540964">
+      <img class="apple" src="assets/app-store-badge.svg" alt="Download on the App Store">
+    </a>
+    <a id="android-link" href="https://play.google.com/store/apps/details?id=org.cdac.updatemkavach">
+      <img class="google" src="assets/google-play-badge.png" alt="Get it on Google Play">
+    </a>
+  </div>
+
+  <div class="qr">
+    <img src="assets/qr.svg" alt="QR code for this page">
+    <small>Or scan this code with your phone.</small>
+  </div>
+</main>
+
+<script>
+(function () {
+  // ---- Configuration: the store links are read from the anchors above ----
+  var iosUrl     = document.getElementById("ios-link").href;
+  var androidUrl = document.getElementById("android-link").href;
+
+  var ua = navigator.userAgent || "";
+  var target = null;
+  if (/android/i.test(ua)) {
+    target = androidUrl;
+  } else if (/iPhone|iPad|iPod|Macintosh/i.test(ua)) {
+    // iPadOS and macOS both report "Macintosh"; the app is on both, so they share the App Store link.
+    target = iosUrl;
+  }
+
+  if (target) {
+    document.getElementById("msg").textContent = "Taking you to the store…";
+    window.location.replace(target);
+  } else {
+    document.body.classList.add("desktop");
+    document.getElementById("msg").textContent = "Get M-Kavach 2 on your phone or tablet.";
+  }
+})();
+</script>
+</body>
+</html>
